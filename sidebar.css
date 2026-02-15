@@ -1,0 +1,500 @@
+/* sidebar.css - PREMIUM REDESIGN v4.0 */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;700&family=Playfair+Display:wght@400;700&family=Space+Grotesk:wght@400;700&family=Roboto+Flex:wght@400;700&display=swap');
+
+#devstyle-sidebar-container {
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+    width: 340px !important;
+    height: calc(100vh - 20px) !important;
+    background: rgba(20, 20, 20, 0.75) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 20px !important;
+    z-index: 2147483647 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transform: translateX(120%);
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease, visibility 0.4s !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    color: #fff !important;
+    overflow: hidden !important;
+}
+
+#devstyle-sidebar-container.visible {
+    transform: translateX(0);
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Header */
+.ds-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.ds-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ds-title {
+    font-weight: 700;
+    font-size: 16px;
+    background: linear-gradient(135deg, #fff 0%, #a8a8a8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+}
+
+.ds-history-controls {
+    display: flex;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.ds-icon-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    font-size: 16px;
+}
+
+.ds-icon-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.ds-icon-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Breadcrumbs */
+.ds-breadcrumbs {
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 11px;
+    font-family: 'SF Mono', 'Roboto Mono', monospace;
+    color: #666;
+    white-space: nowrap;
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ds-breadcrumbs::-webkit-scrollbar {
+    height: 0;
+}
+
+.ds-crumb-item {
+    color: #888;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.ds-crumb-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.ds-crumb-arrow {
+    color: #444;
+    font-size: 10px;
+}
+
+/* Content */
+.ds-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.ds-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ds-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ds-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.ds-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Sections */
+.ds-section {
+    margin-bottom: 32px;
+    animation: ds-fade-in 0.4s ease forwards;
+}
+
+@keyframes ds-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ds-sec-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+/* Inputs */
+.ds-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.ds-input,
+.ds-stepper,
+.ds-font-trigger,
+.ds-tool-btn,
+.ds-color-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ds-input:hover,
+.ds-stepper:hover,
+.ds-font-trigger:hover,
+.ds-tool-btn:hover,
+.ds-color-wrapper:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ds-input:focus,
+.ds-stepper:focus-within {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.ds-input {
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+    width: 100%;
+}
+
+/* Stepper */
+.ds-stepper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.ds-stepper-input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 13px;
+    outline: none;
+    width: 100%;
+}
+
+.ds-stepper-btns {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ds-step-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 8px;
+    cursor: pointer;
+    padding: 0 8px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ds-step-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ds-step-btn:first-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tool Buttons */
+.ds-tool-btn {
+    width: 100%;
+    color: #ccc;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ds-tool-btn:active {
+    transform: scale(0.98);
+}
+
+/* Icons */
+.ds-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+/* Font Picker */
+.ds-font-selector {
+    position: relative;
+    width: 100%;
+}
+
+.ds-font-trigger {
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ds-font-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    display: none;
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 6px;
+}
+
+.ds-font-dropdown.visible {
+    display: block;
+    animation: ds-pop-in 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes ds-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ds-font-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ds-font-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ds-font-name {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.ds-font-preview {
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Colors */
+.ds-color-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.ds-color-label {
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 500;
+}
+
+.ds-color-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    width: auto;
+}
+
+input[type="color"] {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.ds-input-lean {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: 'SF Mono', monospace;
+    font-size: 13px;
+    width: 64px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Footer & Generate Button */
+.ds-footer {
+    padding: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.ds-footer-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.ds-btn-reset {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #888;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 20px;
+}
+
+.ds-btn-reset:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.ds-primary-btn {
+    flex: 1;
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    height: 48px;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ds-primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+    background: #fff;
+}
+
+.ds-primary-btn:active {
+    transform: scale(0.96);
+}
+
+/* Selection Highlight */
+.ds-highlight {
+    outline: 2px dashed #3b82f6 !important;
+    outline-offset: -2px;
+    transition: none !important;
+}
+
+.ds-selected {
+    box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.3) !important;
+    z-index: 9999 !important;
+    position: relative;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}

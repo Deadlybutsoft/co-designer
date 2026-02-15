@@ -1,0 +1,51 @@
+/* inspector.css */
+.agent-bridge-highlight {
+    outline: 2px solid #a855f7 !important;
+    background: rgba(168, 85, 247, 0.1) !important;
+    cursor: crosshair !important;
+}
+
+.agent-bridge-selected {
+    outline: 3px solid #d946ef !important;
+    box-shadow: 0 0 0 4px rgba(217, 70, 239, 0.2) !important;
+    animation: pulse-selection 2s infinite;
+}
+
+@keyframes pulse-selection {
+    0% {
+        box-shadow: 0 0 0 0px rgba(217, 70, 239, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(217, 70, 239, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0px rgba(217, 70, 239, 0);
+    }
+}
+
+/* Toast Notification */
+.agent-bridge-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0f172a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 2147483647;
+    font-family: monospace;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(100px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.agent-bridge-toast.show {
+    transform: translateY(0);
+}

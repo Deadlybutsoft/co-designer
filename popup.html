@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            width: 300px;
+            height: 180px;
+            margin: 0;
+            padding: 0;
+            background: #0f0f0f;
+            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(59,130,246,0.1), transparent 40%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: 11px;
+            color: #666;
+            margin: 0 0 24px 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Toggle Switch */
+        .toggle-wrapper {
+            position: relative;
+            width: 64px;
+            height: 36px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .toggle-container {
+            position: relative;
+            width: 60px;
+            height: 32px;
+        }
+
+        .toggle-checkbox {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.05);
+            transition: .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 36px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .toggle-label:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #666;
+            transition: .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(28px);
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+
+        #status-text {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #444;
+            text-transform: uppercase;
+            transition: 0.3s;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Visually AI</h1>
+        <p>Copilot Companion</p>
+
+        <div class="toggle-wrapper">
+            <div class="toggle-container">
+                <input type="checkbox" id="toggle-editor" class="toggle-checkbox">
+                <label for="toggle-editor" class="toggle-label"></label>
+            </div>
+            <div id="status-text">System Offline</div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
