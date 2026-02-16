@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<body style="background:#333; padding:20px;">
+    <h2 style="color:#fff; font-family:sans-serif;">Extension Icons - Right-click each to "Save Image As"</h2>
+    <div style="display:flex; gap:30px; align-items:end; margin-top:20px;">
+        <div style="text-align:center;">
+            <canvas id="c128" width="128" height="128"></canvas>
+            <p style="color:#aaa; font-family:sans-serif;">128x128</p>
+        </div>
+        <div style="text-align:center;">
+            <canvas id="c48" width="48" height="48"></canvas>
+            <p style="color:#aaa; font-family:sans-serif;">48x48</p>
+        </div>
+        <div style="text-align:center;">
+            <canvas id="c16" width="16" height="16" style="image-rendering:pixelated;"></canvas>
+            <p style="color:#aaa; font-family:sans-serif;">16x16</p>
+        </div>
+    </div>
+    <div id="downloads" style="margin-top:30px;"></div>
+    <script>
+        function drawIcon(ctx, s) {
+            const u = s / 128;
+
+            // Dark rounded background
+            const r = 24 * u;
+            ctx.fillStyle = '#111111';
+            ctx.beginPath();
+            ctx.moveTo(r, 0); ctx.lineTo(s - r, 0); ctx.quadraticCurveTo(s, 0, s, r);
+            ctx.lineTo(s, s - r); ctx.quadraticCurveTo(s, s, s - r, s);
+            ctx.lineTo(r, s); ctx.quadraticCurveTo(0, s, 0, s - r);
+            ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+            ctx.closePath(); ctx.fill();
+
+            ctx.save();
+            ctx.translate(s * 0.5, s * 0.48);
+            ctx.rotate(-Math.PI / 4);
+
+            // Handle
+            const hw = 14 * u, hh = 46 * u;
+            ctx.fillStyle = '#e0e0e0';
+            roundRect(ctx, -hw / 2, -hh, hw, hh, 4 * u);
+
+            // Grip lines
+            if (s >= 48) {
+                ctx.strokeStyle = '#bbb';
+                ctx.lineWidth = 1.5 * u;
+                for (let i = 0; i < 3; i++) {
+                    const y = -hh + 12 * u + i * 8 * u;
+                    ctx.beginPath(); ctx.moveTo(-hw / 2 + 3 * u, y); ctx.lineTo(hw / 2 - 3 * u, y); ctx.stroke();
+                }
+            }
+
+            // Ferrule
+            ctx.fillStyle = '#999';
+            roundRect(ctx, -hw / 2 - 2 * u, 0, hw + 4 * u, 8 * u, 2 * u);
+
+            // Glow
+            const grad = ctx.createRadialGradient(0, 24 * u, 0, 0, 24 * u, 24 * u);
+            grad.addColorStop(0, 'rgba(59,130,246,0.4)');
+            grad.addColorStop(1, 'rgba(59,130,246,0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath(); ctx.arc(0, 24 * u, 24 * u, 0, Math.PI * 2); ctx.fill();
+
+            // Brush tip
+            ctx.fillStyle = '#3b82f6';
+            ctx.beginPath();
+            ctx.moveTo(-9 * u, 8 * u); ctx.lineTo(9 * u, 8 * u);
+            ctx.lineTo(4 * u, 38 * u); ctx.lineTo(-4 * u, 38 * u);
+            ctx.closePath(); ctx.fill();
+
+            // Highlight
+            ctx.fillStyle = '#60a5fa';
+            ctx.beginPath();
+            ctx.moveTo(-3 * u, 10 * u); ctx.lineTo(2 * u, 10 * u);
+            ctx.lineTo(1 * u, 34 * u); ctx.lineTo(-2 * u, 34 * u);
+            ctx.closePath(); ctx.fill();
+
+            ctx.restore();
+
+            // Paint dots
+            if (s >= 48) {
+                ctx.fillStyle = '#3b82f6';
+                ctx.globalAlpha = 0.6;
+                ctx.beginPath(); ctx.arc(s * 0.76, s * 0.80, 4 * u, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(s * 0.84, s * 0.72, 2.5 * u, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 0.4;
+                ctx.beginPath(); ctx.arc(s * 0.71, s * 0.87, 2 * u, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath(); ctx.fill();
+        }
+
+        [128, 48, 16].forEach(size => {
+            const canvas = document.getElementById('c' + size);
+            drawIcon(canvas.getContext('2d'), size);
+
+            // Auto-download link
+            const a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = `icon${size}.png`;
+            a.textContent = `⬇ Download icon${size}.png`;
+            a.style.cssText = 'display:inline-block; margin:8px 16px; padding:10px 20px; background:#3b82f6; color:#fff; border-radius:8px; text-decoration:none; font-family:sans-serif; font-size:14px;';
+            document.getElementById('downloads').appendChild(a);
+        });
+    </script>
+</body>
+
+</html>

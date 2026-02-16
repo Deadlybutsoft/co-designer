@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="8" fill="#111"/>
+  <g transform="translate(24,24) rotate(-45)">
+    <!-- Handle -->
+    <rect x="-3" y="-18" width="6" height="20" rx="2" fill="#e0e0e0"/>
+    <line x1="-2" y1="-14" x2="2" y2="-14" stroke="#bbb" stroke-width="0.8"/>
+    <line x1="-2" y1="-10" x2="2" y2="-10" stroke="#bbb" stroke-width="0.8"/>
+    <!-- Ferrule -->
+    <rect x="-3.5" y="2" width="7" height="4" rx="1" fill="#888"/>
+    <!-- Brush glow -->
+    <circle cx="0" cy="11" r="9" fill="rgba(59,130,246,0.3)"/>
+    <!-- Brush tip -->
+    <polygon points="-3.5,6 3.5,6 1.5,16 -1.5,16" fill="#3b82f6"/>
+    <polygon points="-1.5,7 0.5,7 0.5,14 -0.5,14" fill="#60a5fa"/>
+  </g>
+  <!-- Paint dots -->
+  <circle cx="36" cy="38" r="1.5" fill="#3b82f6" opacity="0.6"/>
+  <circle cx="39" cy="33" r="1" fill="#3b82f6" opacity="0.6"/>
+</svg>

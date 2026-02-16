@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Visually",
+  "name": "Co Designer",
   "version": "1.0.0",
   "description": "The Visual Editor for AI-Assisted Frontend Development.",
   "permissions": [
@@ -12,8 +12,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Toggle Visually",
-    "default_popup": "popup.html"
+    "default_title": "Toggle Co Designer"
   },
   "content_scripts": [
     {

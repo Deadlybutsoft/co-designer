@@ -1,4 +1,4 @@
-/* popup.js - Visually Popup Logic */
+/* popup.js - Co Designer Popup Logic */
 document.addEventListener('DOMContentLoaded', async () => {
     const toggle = document.getElementById('toggle-editor');
     const statusText = document.getElementById('status-text');
