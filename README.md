@@ -1,4 +1,4 @@
-# Co Designer (formerly Visually)
+# Co Designer
 
 **Co Designer** is a Chrome extension that turns your browser into a visual design studio for the GitHub Copilot CLI.
 
