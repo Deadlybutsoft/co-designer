@@ -226,6 +226,49 @@ if (typeof window.devstyleLoaded === 'undefined') {
                 </div>
               </div>
 
+              <div class="ds-row" style="margin-top:8px;">
+                <div class="ds-field">
+                  <label class="ds-label">Line Height</label>
+                  <div class="ds-stepper">
+                    <input type="text" id="ds-input-lineheight" class="ds-stepper-input" placeholder="1.5">
+                    <div class="ds-stepper-btns">
+                      <button class="ds-step-btn" data-target="ds-input-lineheight" data-dir="0.1">▲</button>
+                      <button class="ds-step-btn" data-target="ds-input-lineheight" data-dir="-0.1">▼</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="ds-field">
+                  <label class="ds-label">Letter Spacing</label>
+                  <div class="ds-stepper">
+                    <input type="text" id="ds-input-letterspacing" class="ds-stepper-input" placeholder="0px">
+                    <div class="ds-stepper-btns">
+                      <button class="ds-step-btn" data-target="ds-input-letterspacing" data-dir="0.1">▲</button>
+                      <button class="ds-step-btn" data-target="ds-input-letterspacing" data-dir="-0.1">▼</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ds-row" style="margin-top:8px;">
+                 <div class="ds-field">
+                   <label class="ds-label">Align</label>
+                   <div class="ds-btn-group">
+                      <button class="ds-icon-toggle" data-prop="textAlign" data-val="left" title="Left">L</button>
+                      <button class="ds-icon-toggle" data-prop="textAlign" data-val="center" title="Center">C</button>
+                      <button class="ds-icon-toggle" data-prop="textAlign" data-val="right" title="Right">R</button>
+                      <button class="ds-icon-toggle" data-prop="textAlign" data-val="justify" title="Justify">J</button>
+                   </div>
+                 </div>
+                 <div class="ds-field">
+                   <label class="ds-label">Style</label>
+                   <div class="ds-btn-group">
+                      <button class="ds-icon-toggle" data-prop="fontStyle" data-val="italic" title="Italic"><i>I</i></button>
+                      <button class="ds-icon-toggle" data-prop="textTransform" data-val="uppercase" title="Uppercase">TT</button>
+                      <button class="ds-icon-toggle" data-prop="textDecoration" data-val="underline" title="Underline">U</button>
+                   </div>
+                 </div>
+              </div>
+
               <div class="ds-field" style="margin-top:12px;">
                 <label class="ds-label">Content</label>
                 <textarea id="ds-input-text-content" class="ds-textarea" placeholder="Edit text content..." rows="3"></textarea>
@@ -388,6 +431,8 @@ if (typeof window.devstyleLoaded === 'undefined') {
     // --- Style Bindings ---
     bindStyle('ds-input-size', 'fontSize', 'px');
     bindStyle('ds-input-weight', 'fontWeight');
+    bindStyle('ds-input-lineheight', 'lineHeight'); // NEW
+    bindStyle('ds-input-letterspacing', 'letterSpacing', 'px'); // NEW
     bindStyle('ds-input-margin', 'margin');
     bindStyle('ds-input-padding', 'padding');
     bindStyle('ds-input-radius', 'borderRadius');
@@ -396,6 +441,26 @@ if (typeof window.devstyleLoaded === 'undefined') {
     bindStyle('ds-input-width', 'width');
     bindStyle('ds-input-height', 'height');
     bindStyle('ds-input-opacity', 'opacity');
+
+    // --- Icon Toggles Logic ---
+    sb.querySelectorAll('.ds-icon-toggle').forEach(btn => {
+      btn.onclick = () => {
+        const prop = btn.dataset.prop;
+        const val = btn.dataset.val;
+
+        // Check if already active (toggle off)
+        const current = selectedEl.style[prop];
+        if (current === val) {
+          applyStyle(prop, '');
+          btn.classList.remove('active');
+        } else {
+          applyStyle(prop, val);
+          // Update active state in UI
+          sb.querySelectorAll(`.ds-icon-toggle[data-prop="${prop}"]`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      };
+    });
 
     // Display
     const displaySelect = document.getElementById('ds-input-display');
@@ -548,6 +613,20 @@ if (typeof window.devstyleLoaded === 'undefined') {
 
     set('ds-input-size', parseInt(s.fontSize));
     set('ds-input-weight', s.fontWeight);
+    set('ds-input-lineheight', s.lineHeight !== 'normal' ? parseFloat(s.lineHeight) : '1.5');
+    set('ds-input-letterspacing', s.letterSpacing !== 'normal' ? parseFloat(s.letterSpacing) : '0');
+
+    // Update Toggle Buttons Active State
+    document.querySelectorAll('.ds-icon-toggle').forEach(btn => {
+      const prop = btn.dataset.prop;
+      const val = btn.dataset.val;
+      if (s[prop] === val || (prop === 'fontStyle' && s.fontStyle === 'italic') || (prop === 'textDecoration' && s.textDecorationLine.includes('underline'))) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
     set('ds-input-margin', s.margin);
     set('ds-input-padding', s.padding);
     set('ds-text-color', rgbToHex(s.color));
@@ -639,20 +718,39 @@ if (typeof window.devstyleLoaded === 'undefined') {
     let idx = 1;
 
     for (const [el, changes] of globalChangeLog.entries()) {
-      const cc = Array.from(el.classList).filter(c => !c.startsWith('ds-'));
       let sel = el.tagName.toLowerCase();
-      if (el.id) sel += `#${el.id}`;
-      else if (cc.length) sel += `.${cc.join('.')}`;
 
-      if (sel === el.tagName.toLowerCase() && el.parentElement) {
-        const pc = Array.from(el.parentElement.classList).find(c => !c.startsWith('ds-'));
-        if (pc) sel = `.${pc} > ${sel}`;
+      // 1. Just ID (Best)
+      if (el.id) {
+        sel += `#${el.id}`;
+      } else {
+        // 2. Short Text Content (Very clear for Copilot)
+        const txt = el.innerText ? el.innerText.trim().substring(0, 30).replace(/\n/g, ' ') : '';
+        if (txt.length > 3 && txt.length < 30) {
+          sel += ` containing "${txt}"`;
+        } else {
+          // 3. Meaningful Class (Skip utility classes)
+          const validClasses = Array.from(el.classList).filter(c =>
+            !c.startsWith('ds-') &&
+            !c.includes(':') &&
+            !c.startsWith('tw-') &&
+            c.length > 3
+          );
+
+          if (validClasses.length > 0) {
+            sel += `.${validClasses[0]}`; // Just use the first good class
+          } else if (el.parentElement) {
+            // 4. Parent Context
+            const pTag = el.parentElement.tagName.toLowerCase();
+            sel = `${pTag} > ${sel}`;
+          }
+        }
       }
 
       let descs = [];
       for (const [prop, val] of Object.entries(changes)) {
         if (prop === '__removed') { descs.push('remove element'); continue; }
-        if (prop === 'innerText') { descs.push(`text='${val.to.substring(0, 30)}'`); continue; }
+        if (prop === 'innerText') { descs.push(`change text to '${val.to.substring(0, 20)}...'`); continue; }
         descs.push(`${prop}: ${val.to}`);
       }
       parts.push(`${idx}. '${sel}': ${descs.join(', ')}`);

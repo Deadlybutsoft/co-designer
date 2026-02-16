@@ -1,4 +1,4 @@
-/* sidebar.css - v6.0 CLEAN LAYOUT */
+/* sidebar.css - v6.1 TYPOGRAPHY UPDATE */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fira+Code:wght@400;700&family=Instrument+Serif&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Lato:wght@400;700&family=Lora:wght@400;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;700&family=Outfit:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;600;700&family=Roboto+Flex:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
 
 /* ═══════════ CONTAINER ═══════════ */
@@ -501,6 +501,47 @@ select.ds-input {
 .ds-font-preview {
     font-size: 14px !important;
     color: #fff !important;
+}
+
+/* ═══════════ ICON TOGGLES (NEW) ═══════════ */
+.ds-btn-group {
+    display: flex !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.ds-icon-toggle {
+    flex: 1 !important;
+    background: none !important;
+    border: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: #666 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.1s !important;
+}
+
+.ds-icon-toggle:last-child {
+    border-right: none !important;
+}
+
+.ds-icon-toggle:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.ds-icon-toggle.active {
+    background: rgba(59, 130, 246, 0.15) !important;
+    color: #3b82f6 !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* ═══════════ COLORS ═══════════ */
